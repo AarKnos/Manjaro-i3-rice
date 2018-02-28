@@ -1,0 +1,97 @@
+conky.config = {
+	alignment = 'top_right',
+	background = true,
+	border_width = 1,
+	color1 = '16A085',
+	color2 = 'FDF6E3',
+	color3 = '00CCCC',
+	color4 = 'BA2929',
+	cpu_avg_samples = 2,
+	default_color = 'FDF6E3',
+	default_outline_color = 'FDF6E3',
+	default_shade_color = 'FDF6E3',
+	draw_borders =  false,
+	draw_graph_borders = true,
+	draw_outline = false,
+	draw_shades = false, 
+	gap_x = 1960,
+	gap_y = 40,
+	border_outer_margin = 20,
+	max_port_monitor_connections =  64,
+	maximum_width  = 500,
+	minimum_width  = 500,
+	max_user_text  = 16384,
+	net_avg_samples = 2,
+	out_to_console = false,
+	stippled_borders = 2,
+	double_buffer = true,
+	own_window = true,
+	own_window_class = 'Conky',
+	own_window_type  = 'override',
+	own_window_transparent = false,
+	own_window_argb_visual = true,
+	own_window_argb_value = 64, 
+	update_interval = 2, 
+	uppercase = false,
+	use_xft = true,
+	xftalpha = 0.8,
+	font  = 'Bitstream Vera Sans Mono:size=10',
+}
+
+conky.text = [[
+${color1}$nodename     				${alignr}$kernel
+${color1}Uptime:${color}$uptime 		${color1}${alignr}Load:${color}$loadavg
+
+${color1}CPU: ${color}${cpu cpu0}%				${alignr}${color1}RAM: ${color}$memperc% = $mem/$memmax
+${color1}${cpugraph 60,240 00CCCC BA2929 -t}			${goto 270}${memgraph 60,250 00CCCC BA2929 -t}
+${color}CPU 1 : ${color1}${cpu cpu1}% ${goto 130}${cpubar cpu1 12,125}  	${goto 270}${color}CPU 5 : ${color1}${cpu cpu5}% ${alignr}${cpubar cpu5 12,125}
+${color}CPU 2 : ${color1}${cpu cpu2}% ${goto 130}${cpubar cpu2 12,125}  	${goto 270}${color}CPU 6 : ${color1}${cpu cpu6}% ${alignr}${cpubar cpu6 12,125}
+${color}CPU 3 : ${color1}${cpu cpu3}% ${goto 130}${cpubar cpu3 12,125}  	${goto 270}${color}CPU 7 : ${color1}${cpu cpu7}% ${alignr}${cpubar cpu7 12,125}
+${color}CPU 4 : ${color1}${cpu cpu4}% ${goto 130}${cpubar cpu4 12,125}  	${goto 270}${color}CPU 8 : ${color1}${cpu cpu8}% ${alignr}${cpubar cpu8 12,125}
+${color}Swap Usage: ${color1}$swapperc% = $swap/ $swapmax ${color1}${swapbar 8 color1 color3}
+
+${color1}Net Down:${color} ${downspeed enp0s31f6}   				${goto 270}${color1}Net Up:${color}${upspeed enp0s31f6}
+${color1}${downspeedgraph enp0s31f6 60,240 00CCCC BA2929 12207KiB -t}	${goto 270}${upspeedgraph enp0s31f6 60,250 00CCCC BA2929 12207KiB -t}
+
+${color1}Temperatures in Celsius:
+#${color1}HDDs	${color} ${hddtemp /dev/sda}    ${hddtemp /dev/sdb}    ${hddtemp /dev/sdc}    ${hddtemp /dev/sdd}    ${hddtemp /dev/sde}
+${color1}CPUs	${color} ${hwmon 1 temp 1}°C   ${hwmon 1 temp 2}°C   ${hwmon 1 temp 3}°C   ${hwmon 1 temp 4}°C
+${color1}GPU 	${color} ${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t}°C
+
+${color1}File systems:
+${color1}root     ${color}${fs_used /}/${fs_size /}${color1}											
+${fs_bar 12 /}
+${color1}home     ${color}${fs_used /home}/${fs_size /home}${color1}											
+${fs_bar 12 /home}
+${color1}Read ${color}${diskio_read /dev/sda} 						 ${goto 270}${color1}Write: ${color}${diskio_write /dev/sda}
+${color1}${diskiograph_read /dev/sda 60,240 00CCCC BA2929 -t}         ${goto 270}${diskiograph_write /dev/sda 60,250 00CCCC BA2929 -t}
+
+${color1}Top Processes:
+${color1}Name              PID    CPU%   MEM%  TIME     USER
+${color}${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1} ${top time 1} ${top user 1}
+${color}${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2} ${top time 2} ${top user 2}
+${color}${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3} ${top time 3} ${top user 3}
+${color}${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4} ${top time 4} ${top user 4}
+${color}${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 6} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 7} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 8} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 9} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 10} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+#${color}$hr
+#${color1}Port(s)${alignr}#Connections
+#${color}Inbound: ${tcp_portmon 1 32767 count}  Outbound: ${tcp_portmon 32768 61000 count} ${alignr}ALL: ${tcp_portmon 1 65535 count}
+#${color1}Outbound Connection ${alignr} Remote Service/Port${color}
+#${tcp_portmon 32768 61000 rhost 0} ${alignr} ${tcp_portmon 32768 61000 rservice 0}
+#${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1}
+#${tcp_portmon 32768 61000 rhost 2} ${alignr} ${tcp_portmon 32768 61000 rservice 2}
+#${tcp_portmon 32768 61000 rhost 3} ${alignr} ${tcp_portmon 32768 61000 rservice 3}
+#${tcp_portmon 32768 61000 rhost 4} ${alignr} ${tcp_portmon 32768 61000 rservice 4}
+#${color1}Inbound Connection ${alignr} Local Service/Port${color}
+#${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+#${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
+#${tcp_portmon 1 32767 rhost 2} ${alignr} ${tcp_portmon 1 32767 lservice 2}
+#${tcp_portmon 1 32767 rhost 3} ${alignr} ${tcp_portmon 1 32767 lservice 3}
+#${tcp_portmon 1 32767 rhost 4} ${alignr} ${tcp_portmon 1 32767 lservice 4}
+]]
